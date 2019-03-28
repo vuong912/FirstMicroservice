@@ -14,6 +14,7 @@ type IBoltClient interface {
 	OpenBoltDb()
 	QueryAccount(accountId string) (model.Account, error)
 	Seed()
+	Check() bool
 }
 type BoltClient struct {
 	boltDB *bolt.DB
@@ -72,4 +73,8 @@ func (bc *BoltClient) QueryAccount(accountId string) (model.Account, error) {
 		return model.Account{}, err
 	}
 	return account, nil
+}
+
+func (bc *BoltClient) Check() bool {
+	return bc.boltDB != nil
 }
